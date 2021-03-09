@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebAPI.Models;
 
@@ -11,7 +12,8 @@ namespace WebAPI.Data.Interfaces
         Task<IEnumerable<City>> GetCitiesAsync();
         void AddCity(City city);
         void Delete(int CityId);
-        Task<City> FindCity(int id);
+        void Update(City city);
+        Task<City> FindCity(Expression<Func<City, bool>> expression, List<string> includes = null);
        
     }
 }

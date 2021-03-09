@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetCity(int id)
         {
 
-            var city = await uow.cityRepository.FindCity(id);
+            var city = await uow.cityRepository.FindCity(op => op.Id == id, new List<string> { "Properties" });
             var result = mapper.Map<CityDTO>(city);
             return Ok(result);
 
@@ -65,7 +65,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddCity(CityDTO cityDTO)
+        public async Task<IActionResult> AddCity(createCityDTO cityDTO)
         {
 
             if (!ModelState.IsValid)
@@ -74,8 +74,8 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             var city = mapper.Map<City>(cityDTO);
-                city.LastUpdatedBy = cityDTO.Id;
-                city.LastUpdatedOn = DateTime.Now;
+            city.LastUpdatedBy = 1; // I will change it to be the id or the name of the user
+            city.LastUpdatedOn = DateTime.Now;
              
     
 
@@ -89,14 +89,14 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateCity(int id, CityDTO cityDTO) 
+        public async Task<IActionResult> UpdateCity(int id, updateCityDTO cityDTO) 
         {
-            if(   !ModelState.IsValid || id != cityDTO.Id)
+            if(   !ModelState.IsValid || id <1)
             {
                 _logger.LogError($"Invalid UPDATE attempt In {nameof(UpdateCity)}");
                 return BadRequest(ModelState);
             }
-            var cityFromDb = await uow.cityRepository.FindCity(id);
+            var cityFromDb = await uow.cityRepository.FindCity(op => op.Id == id);
 
             if (cityFromDb == null)
             {
@@ -106,6 +106,7 @@ namespace WebAPI.Controllers
             cityFromDb.LastUpdatedBy = cityFromDb.Id;
             cityFromDb.LastUpdatedOn = DateTime.Now;
             mapper.Map(cityDTO, cityFromDb);
+            uow.cityRepository.Update(cityFromDb);
             await uow.SaveAsync();
 
             return NoContent();
@@ -124,7 +125,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var cityFromDb = await uow.cityRepository.FindCity(id);
+            var cityFromDb = await uow.cityRepository.FindCity(op => op.Id == id);
             if (cityFromDb == null)
             {
                 _logger.LogError($"Invalid UPDATE attempt In {nameof(UpdateCityPatch)}");
@@ -133,7 +134,8 @@ namespace WebAPI.Controllers
             cityFromDb.LastUpdatedBy = cityFromDb.Id;
             cityFromDb.LastUpdatedOn = DateTime.Now;
 
-            cityToPatch.ApplyTo(cityFromDb, ModelState); 
+            cityToPatch.ApplyTo(cityFromDb, ModelState);
+            uow.cityRepository.Update(cityFromDb);
             await uow.SaveAsync();
 
             return NoContent();

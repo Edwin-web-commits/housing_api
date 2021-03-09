@@ -14,7 +14,12 @@ namespace WebAPI.Helpers
         {
             CreateMap<City, CityDTO>().ReverseMap(); //two way mapping
             CreateMap<User, UserDTO>().ReverseMap();
-          
+
+            CreateMap<Property, PropertyDTO>().ReverseMap();
+            CreateMap<Property, createPropertyDTO>().ReverseMap();
+            CreateMap<Property, updatePropertyDTO>().ReverseMap();
+
+
         }
     }
 }

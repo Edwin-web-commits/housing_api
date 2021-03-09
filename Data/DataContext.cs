@@ -10,9 +10,10 @@ namespace WebAPI.Data
 {
     public class DataContext : IdentityDbContext<User>
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options){}
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<City> Cities { get; set; }
+        public DbSet<Property> Properties {get; set;}
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -46,6 +47,35 @@ namespace WebAPI.Data
                       LastUpdatedOn = DateTime.Now
                   }
                 );
+
+            builder.Entity<Property>().HasData(
+                new Property
+                {
+                    Id=1,
+                    SellRent=1,
+                    Name="White House",
+                    PType="Duplex",
+                    BHK=1,
+                    FType="Fully",
+                    Price=5000,
+                    BuiltArea=1200,
+                    CarpetArea=900,
+                    Image="",
+                    Address="1 Street",
+                    CityId=1,
+                    Description="2 BHK, 2 Bathroom, 1 Car Parking",
+                    FloorNo=3,
+                    TotalFloor=8,
+                    AOP=10,
+                    Bathrooms=2,
+                    MainEntrance="East",
+                    Gated=1,
+                    Security=4,
+                    Maintanance=300,
+                    Possesion= "Ready to move",
+                    PostedOn=DateTime.Now
+                });
+
         }
         
     }

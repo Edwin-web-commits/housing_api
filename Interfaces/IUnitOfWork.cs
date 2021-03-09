@@ -9,6 +9,7 @@ namespace WebAPI.Interfaces
      public interface IUnitOfWork
     {
         ICityRepository cityRepository { get; }
+        IPropertyRepository propertyRepository { get; }
        
         Task<bool> SaveAsync();
 

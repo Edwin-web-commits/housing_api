@@ -14,5 +14,6 @@ namespace WebAPI.Models
         public string Country { get; set; }
         public DateTime LastUpdatedOn { get; set; }
         public int LastUpdatedBy { get; set; }
+        public virtual IList<Property> Properties { get; set; }
     }
 }

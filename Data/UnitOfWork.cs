@@ -18,6 +18,7 @@ namespace WebAPI.Data
         }
         public ICityRepository cityRepository => new CityRepository(dc);
 
+        public IPropertyRepository propertyRepository => new PropertyRepository(dc);
 
         public async Task<bool> SaveAsync()
         {
