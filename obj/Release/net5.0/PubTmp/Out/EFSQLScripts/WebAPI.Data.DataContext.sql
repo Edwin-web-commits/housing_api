@@ -210,3 +210,89 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    CREATE TABLE [Properties] (
+        [Id] int NOT NULL IDENTITY,
+        [SellRent] int NOT NULL,
+        [Name] nvarchar(max) NULL,
+        [PType] nvarchar(max) NULL,
+        [BHK] int NOT NULL,
+        [FType] nvarchar(max) NULL,
+        [Price] float NOT NULL,
+        [BuiltArea] int NOT NULL,
+        [CarpetArea] int NOT NULL,
+        [Image] nvarchar(max) NULL,
+        [Address] nvarchar(max) NULL,
+        [CityId] int NOT NULL,
+        [Description] nvarchar(max) NULL,
+        [FloorNo] int NOT NULL,
+        [TotalFloor] int NOT NULL,
+        [AOP] int NOT NULL,
+        [Bathrooms] int NOT NULL,
+        [MainEntrance] nvarchar(max) NULL,
+        [Gated] int NOT NULL,
+        [Security] int NOT NULL,
+        [Maintanance] int NOT NULL,
+        [Possesion] nvarchar(max) NULL,
+        [PostedOn] datetime2 NOT NULL,
+        CONSTRAINT [PK_Properties] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Properties_Cities_CityId] FOREIGN KEY ([CityId]) REFERENCES [Cities] ([Id]) ON DELETE CASCADE
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    EXEC(N'UPDATE [Cities] SET [LastUpdatedOn] = ''2021-03-09T21:52:58.3908492+03:00''
+    WHERE [Id] = 1;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    EXEC(N'UPDATE [Cities] SET [LastUpdatedOn] = ''2021-03-09T21:52:58.3939743+03:00''
+    WHERE [Id] = 2;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    EXEC(N'UPDATE [Cities] SET [LastUpdatedOn] = ''2021-03-09T21:52:58.3939784+03:00''
+    WHERE [Id] = 3;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AOP', N'Address', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'FType', N'FloorNo', N'Gated', N'Image', N'MainEntrance', N'Maintanance', N'Name', N'PType', N'Possesion', N'PostedOn', N'Price', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] ON;
+    EXEC(N'INSERT INTO [Properties] ([Id], [AOP], [Address], [BHK], [Bathrooms], [BuiltArea], [CarpetArea], [CityId], [Description], [FType], [FloorNo], [Gated], [Image], [MainEntrance], [Maintanance], [Name], [PType], [Possesion], [PostedOn], [Price], [Security], [SellRent], [TotalFloor])
+    VALUES (1, 10, N''1 Street'', 1, 2, 1200, 900, 1, N''2 BHK, 2 Bathroom, 1 Car Parking'', N''Fully'', 3, 1, N'''', N''East'', 300, N''White House'', N''Duplex'', N''Ready to move'', ''2021-03-09T21:52:58.3988158+03:00'', 5000.0E0, 4, 1, 8)');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'AOP', N'Address', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'FType', N'FloorNo', N'Gated', N'Image', N'MainEntrance', N'Maintanance', N'Name', N'PType', N'Possesion', N'PostedOn', N'Price', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    CREATE INDEX [IX_Properties_CityId] ON [Properties] ([CityId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210309185259_AddedProperty')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20210309185259_AddedProperty', N'5.0.3');
+END;
+GO
+
+COMMIT;
+GO
+
