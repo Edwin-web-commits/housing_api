@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210614150128_AddedNewEntities")]
+    partial class AddedNewEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,32 +175,6 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Country = "South Africa",
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 887, DateTimeKind.Local).AddTicks(2438),
-                            Name = "Johannesburg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Country = "South Africa",
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 921, DateTimeKind.Local).AddTicks(2691),
-                            Name = "Cape Town"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Country = "South Africa",
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 921, DateTimeKind.Local).AddTicks(2722),
-                            Name = "Nelspruit"
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.FurnishingType", b =>
@@ -220,29 +196,6 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FurnishingTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 924, DateTimeKind.Local).AddTicks(2115),
-                            Name = "Fully"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 924, DateTimeKind.Local).AddTicks(2855),
-                            Name = "Semi"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 924, DateTimeKind.Local).AddTicks(2861),
-                            Name = "Unfurnished"
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.Photo", b =>
@@ -365,64 +318,6 @@ namespace WebAPI.Migrations
                     b.HasIndex("PropertyTypeId");
 
                     b.ToTable("Properties");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "1 Street",
-                            Age = 2,
-                            BHK = 1,
-                            Bathrooms = 2,
-                            BuiltArea = 1200,
-                            CarpetArea = 900,
-                            CityId = 1,
-                            Description = "2 BHK, 2 Bathroom, 1 Car Parking",
-                            EstPossesionOn = new DateTime(2021, 6, 14, 22, 31, 19, 923, DateTimeKind.Local).AddTicks(6200),
-                            FloorNo = 3,
-                            FurnishingTypeId = 1,
-                            Gated = true,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 923, DateTimeKind.Local).AddTicks(6648),
-                            MainEntrance = "East",
-                            Maintanance = 300,
-                            Name = "White House",
-                            PostedBy = "abcde",
-                            Price = 5000.0,
-                            PropertyTypeId = 1,
-                            ReadyToMove = false,
-                            Security = 4,
-                            SellRent = 1,
-                            TotalFloor = 8
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "1 Street",
-                            Age = 2,
-                            BHK = 1,
-                            Bathrooms = 2,
-                            BuiltArea = 1200,
-                            CarpetArea = 900,
-                            CityId = 2,
-                            Description = "2 BHK, 2 Bathroom, 1 Car Parking",
-                            EstPossesionOn = new DateTime(2021, 6, 14, 22, 31, 19, 923, DateTimeKind.Local).AddTicks(7368),
-                            FloorNo = 3,
-                            FurnishingTypeId = 2,
-                            Gated = true,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 923, DateTimeKind.Local).AddTicks(7371),
-                            MainEntrance = "East",
-                            Maintanance = 300,
-                            Name = "Pandora",
-                            PostedBy = "abcde",
-                            Price = 5000.0,
-                            PropertyTypeId = 2,
-                            ReadyToMove = false,
-                            Security = 4,
-                            SellRent = 2,
-                            TotalFloor = 8
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.PropertyType", b =>
@@ -444,29 +339,6 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PropertyTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 923, DateTimeKind.Local).AddTicks(9214),
-                            Name = "Duplex"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 924, DateTimeKind.Local).AddTicks(321),
-                            Name = "House"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            LastUpdatedBy = "abcde",
-                            LastUpdatedOn = new DateTime(2021, 6, 14, 22, 31, 19, 924, DateTimeKind.Local).AddTicks(334),
-                            Name = "Apartment"
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.User", b =>

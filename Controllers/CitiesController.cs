@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
             var city = mapper.Map<City>(cityDTO);
-            city.LastUpdatedBy = 1; // I will change it to be the id or the name of the user
+            city.LastUpdatedBy = "d-sed"; // I will change it to be the id or the name of the user
             city.LastUpdatedOn = DateTime.Now;
              
     
@@ -103,7 +103,7 @@ namespace WebAPI.Controllers
                 _logger.LogError($"Invalid UPDATE attempt In {nameof(UpdateCity)}");
                 return BadRequest("Submitted data is invalid");
             }
-            cityFromDb.LastUpdatedBy = cityFromDb.Id;
+            cityFromDb.LastUpdatedBy = cityFromDb.LastUpdatedBy;
             cityFromDb.LastUpdatedOn = DateTime.Now;
             mapper.Map(cityDTO, cityFromDb);
             uow.cityRepository.Update(cityFromDb);
@@ -131,7 +131,7 @@ namespace WebAPI.Controllers
                 _logger.LogError($"Invalid UPDATE attempt In {nameof(UpdateCityPatch)}");
                 return BadRequest("Submitted data is invalid");
             }
-            cityFromDb.LastUpdatedBy = cityFromDb.Id;
+            cityFromDb.LastUpdatedBy = cityFromDb.LastUpdatedBy;
             cityFromDb.LastUpdatedOn = DateTime.Now;
 
             cityToPatch.ApplyTo(cityFromDb, ModelState);

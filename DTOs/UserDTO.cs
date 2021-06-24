@@ -8,6 +8,8 @@ namespace WebAPI.DTOs
 {
     public class LoginUserDTO
     {
+        
+        public int Id { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
@@ -23,8 +25,10 @@ namespace WebAPI.DTOs
 
             [DataType(DataType.PhoneNumber)]
             public string PhoneNumber { get; set; }
+            public DateTime LastUpdatedOn { get; set; }
+            public string LastUpdatedBy { get; set; }
 
-          //  public ICollection<string> Roles { get; set; }
-        
+        //  public ICollection<string> Roles { get; set; }
+
     }
 }

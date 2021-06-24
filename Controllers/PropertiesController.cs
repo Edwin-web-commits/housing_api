@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,17 +28,18 @@ namespace WebAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("type/{sellRent}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetProperties()
+        public async Task<IActionResult> GetProperties(int sellRent)
         {
-             var properties= await uow.propertyRepository.GetPropertiesAsync();
-             var propertiesDTO = mapper.Map<IEnumerable<PropertyDTO>>(properties);
+             var properties= await uow.propertyRepository.GetPropertiesAsync(sellRent);
+             var propertiesDTO = mapper.Map<IEnumerable<PropertyListDTO>>(properties);
 
             return Ok(propertiesDTO);
         }
-       
+       /*
         [HttpGet("{id:int}", Name = "GetProperty")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -45,6 +47,16 @@ namespace WebAPI.Controllers
         {
             var property = await uow.propertyRepository.FindProperty(op => op.Id == id, new List<string> { "City" });
             var result = mapper.Map<PropertyDTO>(property);
+            return Ok(result);
+        }
+       */
+        [HttpGet("detail/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetPropertyDetail(int id)
+        {
+            var property = await uow.propertyRepository.GetPropertyDetailAsync(id);
+            var result = mapper.Map<PropertyDetailDTO>(property);
             return Ok(result);
         }
 

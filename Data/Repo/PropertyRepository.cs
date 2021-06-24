@@ -46,9 +46,22 @@ namespace WebAPI.Data.Repo
             return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<IEnumerable<Property>> GetPropertiesAsync()
+        public async Task<IEnumerable<Property>> GetPropertiesAsync(int sellRent)
         {
-            return await dc.Properties.ToListAsync();
+            return await dc.Properties
+                 .Include(p=>p.PropertyType)
+                 .Include(p=>p.City)
+                 .Include(p=>p.FurnishingType)
+                 .Where(p=> p.SellRent == sellRent).ToListAsync();
+        }
+
+        public async Task<Property> GetPropertyDetailAsync(int id)
+        {
+            return await dc.Properties
+                 .Include(p => p.PropertyType)
+                 .Include(p => p.City)
+                 .Include(p => p.FurnishingType)
+                 .Where(p => p.Id == id).FirstAsync();
         }
 
         public void Update(Property property)

@@ -10,7 +10,9 @@ namespace WebAPI.Interfaces
     {
         ICityRepository cityRepository { get; }
         IPropertyRepository propertyRepository { get; }
-       
+        IPropertyTypeRepository PropertyTypeRepository { get; }
+        IFurnishingTypeRepository FurnishingTypeRepository { get; }
+
         Task<bool> SaveAsync();
 
     }

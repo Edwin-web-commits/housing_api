@@ -21,6 +21,8 @@ namespace WebAPI.DTOs
 
         [Required(ErrorMessage = "Country is mandatory field")]
         public string Country { get; set; }
+        public DateTime LastUpdatedOn { get; set; }
+        public string LastUpdatedBy { get; set; }
 
     }
 
