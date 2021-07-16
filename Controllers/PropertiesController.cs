@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,17 +16,21 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PropertiesController : ControllerBase
+    public class PropertiesController :BaseController
     {
         private readonly IUnitOfWork uow;
         private readonly ILogger<PropertiesController> logger;
+        private readonly IAuthManager authManager;
         private readonly IMapper mapper;
+        private readonly UserManager<User> userManager;
 
-        public PropertiesController(IUnitOfWork uow, ILogger<PropertiesController> logger, IMapper mapper )
+        public PropertiesController(IUnitOfWork uow, UserManager<User> userManager, IAuthManager authManager, ILogger<PropertiesController> logger, IMapper mapper )
         {
             this.uow = uow;
             this.logger = logger;
             this.mapper = mapper;
+            this.authManager = authManager;
+            this.userManager = userManager;
         }
 
         [HttpGet("type/{sellRent}")]
@@ -61,6 +66,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -74,9 +80,13 @@ namespace WebAPI.Controllers
             }
             var property = mapper.Map<Property>(propDTO);
 
+            var userId = GetUserId();
+            property.PostedBy = userId;
+            property.LastUpdatedBy = userId;
             uow.propertyRepository.AddProperty(property);
             await uow.SaveAsync();
-            return CreatedAtRoute("GetProperty", new { id = property.Id }, property);
+            return StatusCode(201);
+          //  return CreatedAtRoute("GetProperty", new { id = property.Id }, property);
         }
 
        

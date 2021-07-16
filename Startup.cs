@@ -62,6 +62,9 @@ namespace WebAPI
             app.ConfigureExceptionHandler(); //implemented in Extentions folder to handle global exceptions
      
             app.UseRouting();
+            app.UseHsts();
+            app.UseHttpsRedirection();
+
             app.UseCors( m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod() );
 
             app.UseAuthentication();

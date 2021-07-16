@@ -21,7 +21,8 @@ namespace WebAPI.Helpers
 
            // CreateMap<PropertyType, PropertyTypeDTO>().ReverseMap(); //two way mapping
             CreateMap<PropertyType, KeyValuePairDTO>().ReverseMap(); //two way mapping
-            CreateMap<FurnishingType, FurnishingTypeDTO>().ReverseMap();
+           // CreateMap<FurnishingType, FurnishingTypeDTO>().ReverseMap();
+            CreateMap<FurnishingType, KeyValuePairDTO>().ReverseMap();
             //.......
             //In the first case, We only want to map the Name property in the City model with the city field in the PropertyListDTO model.
             //The source(Property) and destination(PropertyListDTO) have different types or names in their fields.

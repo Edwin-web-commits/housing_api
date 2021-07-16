@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Interfaces;
 using WebAPI.Models;
 
 namespace WebAPI.Data.Repo
 {
-    public class FurnishingTypeRepository
+    public class FurnishingTypeRepository: IFurnishingTypeRepository
     {
        private readonly DataContext dc;
 

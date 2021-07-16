@@ -15,6 +15,8 @@ namespace WebAPI.DTOs
         public FurnishingTypeDTO furnishingType { get; set; }
         public PropertyTypeDTO PropertyType { get; set; }
         public UserDTO user { get; set; }
+        public string PostedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
     }
     public class createPropertyDTO
     {
@@ -33,18 +35,10 @@ namespace WebAPI.DTOs
         public double Price { get; set; }
 
         public int BuiltArea { get; set; }
-
         public int CarpetArea { get; set; }
-
-
         public string Address { get; set; }
         public string Address2 { get; set; }
-
-
-       
         public int CityId { get; set; }
-        
-
         public string Description { get; set; }
         public int FloorNo { get; set; }
 
@@ -56,21 +50,17 @@ namespace WebAPI.DTOs
 
         public bool Gated { get; set; }
 
-        public int Security { get; set; }
+        public int Security { get; set; } = 0;
         public bool ReadyToMove { get; set; }
 
-        public int Maintanance { get; set; }
+        public int maintanance { get; set; } = 0;
 
         public DateTime EstPossesionOn { get; set; }
-        public int Age { get; set; }
+        public int Age { get; set; } = 0;
 
-        public ICollection<Photo> Photos { get; set; }
-        public DateTime PostedOn = DateTime.Now;
+        //public ICollection<Photo> Photos { get; set; }
 
-        
-        public string PostedBy { get; set; }
-        public DateTime LastUpdatedOn { get; set; }
-        public string LastUpdatedBy { get; set; }
+
 
     }
 

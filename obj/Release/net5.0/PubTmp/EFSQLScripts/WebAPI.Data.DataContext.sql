@@ -296,3 +296,305 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC(N'DELETE FROM [Cities]
+    WHERE [Id] = 2;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC(N'DELETE FROM [Cities]
+    WHERE [Id] = 3;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC(N'DELETE FROM [Properties]
+    WHERE [Id] = 1;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC(N'DELETE FROM [Cities]
+    WHERE [Id] = 1;
+    SELECT @@ROWCOUNT');
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    DECLARE @var0 sysname;
+    SELECT @var0 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Properties]') AND [c].[name] = N'FType');
+    IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [Properties] DROP CONSTRAINT [' + @var0 + '];');
+    ALTER TABLE [Properties] DROP COLUMN [FType];
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    DECLARE @var1 sysname;
+    SELECT @var1 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Properties]') AND [c].[name] = N'Image');
+    IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [Properties] DROP CONSTRAINT [' + @var1 + '];');
+    ALTER TABLE [Properties] DROP COLUMN [Image];
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC sp_rename N'[Properties].[PostedOn]', N'LastUpdatedOn', N'COLUMN';
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC sp_rename N'[Properties].[Possesion]', N'LastUpdatedBy', N'COLUMN';
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC sp_rename N'[Properties].[PType]', N'Address2', N'COLUMN';
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    EXEC sp_rename N'[Properties].[AOP]', N'PropertyTypeId', N'COLUMN';
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    DECLARE @var2 sysname;
+    SELECT @var2 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Properties]') AND [c].[name] = N'Gated');
+    IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [Properties] DROP CONSTRAINT [' + @var2 + '];');
+    ALTER TABLE [Properties] ALTER COLUMN [Gated] bit NOT NULL;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD [Age] int NOT NULL DEFAULT 0;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD [EstPossesionOn] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD [FurnishingTypeId] int NOT NULL DEFAULT 0;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD [PostedBy] nvarchar(450) NULL;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD [ReadyToMove] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    DECLARE @var3 sysname;
+    SELECT @var3 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Cities]') AND [c].[name] = N'LastUpdatedBy');
+    IF @var3 IS NOT NULL EXEC(N'ALTER TABLE [Cities] DROP CONSTRAINT [' + @var3 + '];');
+    ALTER TABLE [Cities] ALTER COLUMN [LastUpdatedBy] nvarchar(max) NULL;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE TABLE [FurnishingTypes] (
+        [Id] int NOT NULL IDENTITY,
+        [Name] nvarchar(max) NULL,
+        [LastUpdatedOn] datetime2 NOT NULL,
+        [LastUpdatedBy] nvarchar(max) NULL,
+        CONSTRAINT [PK_FurnishingTypes] PRIMARY KEY ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE TABLE [Photos] (
+        [Id] nvarchar(450) NOT NULL,
+        [ImageUrl] nvarchar(max) NULL,
+        [IsPrimary] bit NOT NULL,
+        [LastUpdatedOn] datetime2 NOT NULL,
+        [LastUpdatedBy] nvarchar(max) NULL,
+        [PropertyId] int NOT NULL,
+        CONSTRAINT [PK_Photos] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Photos_Properties_PropertyId] FOREIGN KEY ([PropertyId]) REFERENCES [Properties] ([Id]) ON DELETE CASCADE
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE TABLE [PropertyTypes] (
+        [Id] int NOT NULL IDENTITY,
+        [Name] nvarchar(max) NULL,
+        [LastUpdatedOn] datetime2 NOT NULL,
+        [LastUpdatedBy] nvarchar(max) NULL,
+        CONSTRAINT [PK_PropertyTypes] PRIMARY KEY ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE INDEX [IX_Properties_FurnishingTypeId] ON [Properties] ([FurnishingTypeId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE INDEX [IX_Properties_PostedBy] ON [Properties] ([PostedBy]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE INDEX [IX_Properties_PropertyTypeId] ON [Properties] ([PropertyTypeId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    CREATE INDEX [IX_Photos_PropertyId] ON [Photos] ([PropertyId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD CONSTRAINT [FK_Properties_AspNetUsers_PostedBy] FOREIGN KEY ([PostedBy]) REFERENCES [AspNetUsers] ([Id]) ON DELETE NO ACTION;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD CONSTRAINT [FK_Properties_FurnishingTypes_FurnishingTypeId] FOREIGN KEY ([FurnishingTypeId]) REFERENCES [FurnishingTypes] ([Id]) ON DELETE CASCADE;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    ALTER TABLE [Properties] ADD CONSTRAINT [FK_Properties_PropertyTypes_PropertyTypeId] FOREIGN KEY ([PropertyTypeId]) REFERENCES [PropertyTypes] ([Id]) ON DELETE CASCADE;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614150128_AddedNewEntities')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20210614150128_AddedNewEntities', N'5.0.3');
+END;
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Country', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[Cities]'))
+        SET IDENTITY_INSERT [Cities] ON;
+    EXEC(N'INSERT INTO [Cities] ([Id], [Country], [LastUpdatedBy], [LastUpdatedOn], [Name])
+    VALUES (1, N''South Africa'', N''abcde'', ''2021-06-14T22:31:19.8872438+03:00'', N''Johannesburg''),
+    (2, N''South Africa'', N''abcde'', ''2021-06-14T22:31:19.9212691+03:00'', N''Cape Town''),
+    (3, N''South Africa'', N''abcde'', ''2021-06-14T22:31:19.9212722+03:00'', N''Nelspruit'')');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Country', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[Cities]'))
+        SET IDENTITY_INSERT [Cities] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[FurnishingTypes]'))
+        SET IDENTITY_INSERT [FurnishingTypes] ON;
+    EXEC(N'INSERT INTO [FurnishingTypes] ([Id], [LastUpdatedBy], [LastUpdatedOn], [Name])
+    VALUES (1, N''abcde'', ''2021-06-14T22:31:19.9242115+03:00'', N''Fully''),
+    (2, N''abcde'', ''2021-06-14T22:31:19.9242855+03:00'', N''Semi''),
+    (3, N''abcde'', ''2021-06-14T22:31:19.9242861+03:00'', N''Unfurnished'')');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[FurnishingTypes]'))
+        SET IDENTITY_INSERT [FurnishingTypes] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[PropertyTypes]'))
+        SET IDENTITY_INSERT [PropertyTypes] ON;
+    EXEC(N'INSERT INTO [PropertyTypes] ([Id], [LastUpdatedBy], [LastUpdatedOn], [Name])
+    VALUES (1, N''abcde'', ''2021-06-14T22:31:19.9239214+03:00'', N''Duplex''),
+    (2, N''abcde'', ''2021-06-14T22:31:19.9240321+03:00'', N''House''),
+    (3, N''abcde'', ''2021-06-14T22:31:19.9240334+03:00'', N''Apartment'')');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LastUpdatedBy', N'LastUpdatedOn', N'Name') AND [object_id] = OBJECT_ID(N'[PropertyTypes]'))
+        SET IDENTITY_INSERT [PropertyTypes] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Address2', N'Age', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'EstPossesionOn', N'FloorNo', N'FurnishingTypeId', N'Gated', N'LastUpdatedBy', N'LastUpdatedOn', N'MainEntrance', N'Maintanance', N'Name', N'PostedBy', N'Price', N'PropertyTypeId', N'ReadyToMove', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] ON;
+    EXEC(N'INSERT INTO [Properties] ([Id], [Address], [Address2], [Age], [BHK], [Bathrooms], [BuiltArea], [CarpetArea], [CityId], [Description], [EstPossesionOn], [FloorNo], [FurnishingTypeId], [Gated], [LastUpdatedBy], [LastUpdatedOn], [MainEntrance], [Maintanance], [Name], [PostedBy], [Price], [PropertyTypeId], [ReadyToMove], [Security], [SellRent], [TotalFloor])
+    VALUES (1, N''1 Street'', NULL, 2, 1, 2, 1200, 900, 1, N''2 BHK, 2 Bathroom, 1 Car Parking'', ''2021-06-14T22:31:19.9236200+03:00'', 3, 1, CAST(1 AS bit), N''abcde'', ''2021-06-14T22:31:19.9236648+03:00'', N''East'', 300, N''White House'', N''abcde'', 5000.0E0, 1, CAST(0 AS bit), 4, 1, 8)');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Address2', N'Age', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'EstPossesionOn', N'FloorNo', N'FurnishingTypeId', N'Gated', N'LastUpdatedBy', N'LastUpdatedOn', N'MainEntrance', N'Maintanance', N'Name', N'PostedBy', N'Price', N'PropertyTypeId', N'ReadyToMove', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Address2', N'Age', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'EstPossesionOn', N'FloorNo', N'FurnishingTypeId', N'Gated', N'LastUpdatedBy', N'LastUpdatedOn', N'MainEntrance', N'Maintanance', N'Name', N'PostedBy', N'Price', N'PropertyTypeId', N'ReadyToMove', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] ON;
+    EXEC(N'INSERT INTO [Properties] ([Id], [Address], [Address2], [Age], [BHK], [Bathrooms], [BuiltArea], [CarpetArea], [CityId], [Description], [EstPossesionOn], [FloorNo], [FurnishingTypeId], [Gated], [LastUpdatedBy], [LastUpdatedOn], [MainEntrance], [Maintanance], [Name], [PostedBy], [Price], [PropertyTypeId], [ReadyToMove], [Security], [SellRent], [TotalFloor])
+    VALUES (2, N''1 Street'', NULL, 2, 1, 2, 1200, 900, 2, N''2 BHK, 2 Bathroom, 1 Car Parking'', ''2021-06-14T22:31:19.9237368+03:00'', 3, 2, CAST(1 AS bit), N''abcde'', ''2021-06-14T22:31:19.9237371+03:00'', N''East'', 300, N''Pandora'', N''abcde'', 5000.0E0, 2, CAST(0 AS bit), 4, 2, 8)');
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Address2', N'Age', N'BHK', N'Bathrooms', N'BuiltArea', N'CarpetArea', N'CityId', N'Description', N'EstPossesionOn', N'FloorNo', N'FurnishingTypeId', N'Gated', N'LastUpdatedBy', N'LastUpdatedOn', N'MainEntrance', N'Maintanance', N'Name', N'PostedBy', N'Price', N'PropertyTypeId', N'ReadyToMove', N'Security', N'SellRent', N'TotalFloor') AND [object_id] = OBJECT_ID(N'[Properties]'))
+        SET IDENTITY_INSERT [Properties] OFF;
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210614193121_SeedingData')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20210614193121_SeedingData', N'5.0.3');
+END;
+GO
+
+COMMIT;
+GO
+

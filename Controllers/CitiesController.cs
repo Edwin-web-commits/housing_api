@@ -19,11 +19,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CitiesController : ControllerBase
     {
-       
-       
+
+
         private readonly IUnitOfWork uow;
         private readonly ILogger<CitiesController> _logger;
-        public  readonly IMapper mapper;
+        public readonly IMapper mapper;
 
         public CitiesController(IUnitOfWork uow, ILogger<CitiesController> logger, IMapper mapper)
         {
@@ -32,7 +32,8 @@ namespace WebAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("cities")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCities()

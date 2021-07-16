@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACQyS6u1daU+ijPwT3bubnAAAAAACAAAAAAAQZgAAAAEAACAAAAD/4pMFHK9NmVk/OHej6c5QMh6F8jRfXRsWEiJTweNvNQAAAAAOgAAAAAIAACAAAACVBjOTKvB4YwWTdt1KDQPi508oubz15E5GdrJ1QSfdKoAAAAAiTGH1aZnuJHV9tCwKsjudMqOxPLpMz3oyID22/AXFdgEGZw3U1eh4Phvs/e5ZeW+NAs7+hW/plqjPgCj5syfkhMTKC0ZZGUW6832OkBxmJJ6a0PSCUDjVyZ0Nwebvog1x/hkbRGyL+VEbrDsvIMdMtuV6G88F0WTYGS4LK0njAkAAAAASzIzIlVQZZQTjMQNO3N9rJE/fvvPRLAfKLaANBWZts0T1vLk8lPrJ12Bnd4JydxRefCHMg35pEgzMnZobcv6K</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="sqlConnection">
+      <Value>Data Source=tcp:hspaa.database.windows.net,1433%3bInitial Catalog=hspa%3bUser Id=edwin%40hspaa.database.windows.net%3bPassword=Moropane%402%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="WebAPI.Data.DataContext">
+      <Value>Data Source=tcp:hspaa.database.windows.net,1433%3bInitial Catalog=hspa%3bUser Id=edwin%40hspaa.database.windows.net%3bPassword=Moropane%402%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
