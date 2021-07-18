@@ -13,6 +13,7 @@ using WebAPI.Data.Repo;
 using WebAPI.Extensions;
 using WebAPI.Helpers;
 using WebAPI.Interfaces;
+using WebAPI.services;
 
 namespace WebAPI
 {
@@ -42,6 +43,7 @@ namespace WebAPI
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
+            services.AddScoped<IPhotoService, PhotoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,14 +23,16 @@ namespace WebAPI.Controllers
         private readonly IAuthManager authManager;
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
+        private readonly IPhotoService photoService;
 
-        public PropertiesController(IUnitOfWork uow, UserManager<User> userManager, IAuthManager authManager, ILogger<PropertiesController> logger, IMapper mapper )
+        public PropertiesController(IUnitOfWork uow, UserManager<User> userManager, IAuthManager authManager, ILogger<PropertiesController> logger, IMapper mapper, IPhotoService photoService )
         {
             this.uow = uow;
             this.logger = logger;
             this.mapper = mapper;
             this.authManager = authManager;
             this.userManager = userManager;
+            this.photoService = photoService;
         }
 
         [HttpGet("type/{sellRent}")]
@@ -89,8 +91,23 @@ namespace WebAPI.Controllers
           //  return CreatedAtRoute("GetProperty", new { id = property.Id }, property);
         }
 
-       
-        [HttpPut("update/{id}")]
+        //properties/add/photo/1
+        [HttpPost("add/photo/{id}")]
+        
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AddProperyPhoto(IFormFile file, int propId)
+        {
+            var result = await photoService.UploadPhotoAsync(file);
+            if(result.Error != null)
+            {
+                return BadRequest(result.Error.Message);
+            }
+            return Ok(201);
+        }
+
+            [HttpPut("update/{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

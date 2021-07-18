@@ -12,6 +12,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
+        // method for getting user Id from the generated token
         protected string GetUserId()
         {
               return (User.FindFirst(ClaimTypes.Name).Value);
